@@ -1,38 +1,39 @@
-import React, { Component }from 'react';
+import React, { useState, useEffect } from 'react';
 import MainContainer from './components/MainContainer.jsx';
 
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-    }
-  }
+
+const App = () => {
+  const [speciesData, setSpeciesData] = useState(null);
+  const [currentDate, setCurrentDate] = useState('');
+
     
-  componentDidMount() {
+  useEffect(() => {
     fetch('https://api.ebird.org/v2/data/obs/US-CA-001/recent', {
       headers: {"x-ebirdapitoken": "k35m7c131mkp"}})
       .then(res => res.json())
-      .then(res => this.setState({data: res}))
-      .catch(err => console.log('App.componentDidMount: get characters: ERROR: ', err));
+      .then(res => setSpeciesData(res))
+      .catch(err => console.log('App.componentDidMount: get species data: ERROR: ', err));
+
+      const date = new Date();
+      setCurrentDate(date.toDateString());
+  }, []);
+
+  const speciesList = [];
+  for (let i = 0; i <= Math.floor(speciesData?.length / 2); i++) {
+    if (i ==  Math.floor(speciesData?.length / 2)) {
+      speciesList.push(" ".concat(speciesData[i]?.comName));
+    } 
+    else {
+      speciesList.push(" ".concat(speciesData[i]?.comName.concat(",")));
+    }
   }
 
-  render() {
-    const {data} = this.state;
-    const speciesList = [];
-    console.log(data);
-    // console.log(data[0])
-    // for (let i = 0; i < data.length; i++) {
-    //   speciesList.push(data[i].comName);
-    // }
-    console.log(speciesList)
     return(
       <div>
-        <MainContainer/>
+        <MainContainer date={currentDate} speciesList={speciesList}/>
       </div>
     );
-  }
 }
 
 export default App;
