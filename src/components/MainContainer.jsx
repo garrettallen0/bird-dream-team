@@ -6,17 +6,18 @@ const MainContainer = (props) => {
     const {speciesList, date} = props;
     const birdCards = [];
 
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i < 3; i++) {
       birdCards.push(<BirdCard key={i} id="birdCard" item={i}/>)
     }
     const [birdList, setBirdList] = useState([]);
     const handleClick = () => {
         const newTop = [];
-        for (let i = 0; i < 5; i++) {
-            newTop.push(document.getElementById('location'))
+        for (let i = 1; i < 3; i++) {
+            const field = "field"+i;
+            newTop.push(document.getElementById(field).value)
         }
-        // console.log(birdList)
-        setBirdList();
+        console.log(newTop)
+        // setBirdList();
     }
 
     return (
