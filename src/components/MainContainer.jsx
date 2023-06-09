@@ -2,22 +2,36 @@ import React from 'react';
 import BirdCard from './BirdCard.js';
 import {useState} from 'react';
 
+
 const MainContainer = (props) => {
     const {speciesList, date} = props;
     const birdCards = [];
 
-    for (let i = 1; i < 3; i++) {
+    for (let i = 1; i < 4; i++) {
       birdCards.push(<BirdCard key={i} id="birdCard" item={i}/>)
     }
-    const [birdList, setBirdList] = useState([]);
+    // const [birdList, setBirdList] = useState([]);
     const handleClick = () => {
         const newTop = [];
-        for (let i = 1; i < 3; i++) {
+        for (let i = 1; i < 4; i++) {
             const field = "field"+i;
             newTop.push(document.getElementById(field).value)
         }
         console.log(newTop)
-        // setBirdList();
+        const newEntry = {
+            date: date,
+            birds: newTop,
+        }
+      
+        fetch('/addBirds', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newEntry)
+        })
+        .catch(err => console.log(err))
+
     }
 
     return (

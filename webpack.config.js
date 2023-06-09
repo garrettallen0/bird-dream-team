@@ -48,5 +48,19 @@ module.exports = {
       directory: path.resolve(__dirname, 'build'),
       publicPath: "/",
     },
+    proxy: {
+      '/addBirds': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/src/**': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/getBirds': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+    },
   },
 };

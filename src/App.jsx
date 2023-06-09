@@ -17,6 +17,17 @@ const App = () => {
 
       const date = new Date();
       setCurrentDate(date.toDateString());
+
+    fetch('/getBirds', {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res)
+      const dataArray = JSON.parse(res);
+      console.log(dataArray);
+    })
+    .catch(err => console.log(err))
   }, []);
 
   const speciesList = [];
