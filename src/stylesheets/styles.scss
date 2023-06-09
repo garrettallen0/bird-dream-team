@@ -22,21 +22,28 @@ body {
 
 .todayBirds {
     display: grid;
+    justify-content: space-around;
     grid-template-columns: repeat(auto-fill, minmax(320px, auto));
 }
 
 .birdCard {
-    border: 1px solid black;
-    background-color: white;
+    border: 1px solid rgba(0, 0, 0, .5);
+    background-color: rgba(225, 225, 225, .8);
+    border-radius: .5rem;
     height: 300px;
     text-align: center;
+    box-shadow: 10px 5px 5px red;
 }
 
 .buttonLine {
     display: flex;
     justify-content: center;
+    padding-top: 1rem;
     .subButton {
         padding: 1rem;
+        border-radius: .5rem;
+        border: 1px solid rgba(0, 0, 0, .5);
+        box-shadow: 5px 2px 2px red;
     }
 }
 
@@ -45,4 +52,13 @@ body {
     color: lightslategray;
     font-size: small;
     padding-bottom: 1rem;
+}
+
+h3 {
+    padding-right: 2rem;
+}
+
+h5 {
+    color: lightslategray;
+    padding-left: 3rem;
 }

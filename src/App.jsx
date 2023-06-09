@@ -6,6 +6,7 @@ import MainContainer from './components/MainContainer.jsx';
 const App = () => {
   const [speciesData, setSpeciesData] = useState(null);
   const [currentDate, setCurrentDate] = useState('');
+  const [birdList, setBirdList] = useState([])
 
     
   useEffect(() => {
@@ -23,9 +24,10 @@ const App = () => {
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res)
+      console.log('line 26', res)
       const dataArray = JSON.parse(res);
-      console.log(dataArray);
+      console.log('line 28', dataArray);
+      setBirdList(dataArray)
     })
     .catch(err => console.log(err))
   }, []);
@@ -42,7 +44,7 @@ const App = () => {
 
     return(
       <div>
-        <MainContainer date={currentDate} speciesList={speciesList}/>
+        <MainContainer date={currentDate} speciesList={speciesList} birdList={birdList}/>
       </div>
     );
 }

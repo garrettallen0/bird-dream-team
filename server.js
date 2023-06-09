@@ -31,20 +31,28 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/addBirds', (req, res) => {
+app.post('/addBirds', (req, res, next) => {
   const {body} = req;
-  const text = JSON.stringify(body);
-  console.log(text)
-  return fs.appendFile('./historicalbirds.json', text, (err) => {
-    if (err) {
-      console.log(err)
-      res.status(500)
+  fs.readFile('./historicalbirds.json', 'UTF-8', (err, data) => {
+    console.log(data)
+    let parsedData = JSON.parse(data);
+    if (parsedData == null) {
+      parsedData = [];
     }
-    else {
-      console.log('success')
-      return res.status(200)
-    }
+    parsedData.push(body);
+    const text = JSON.stringify(parsedData)
+    fs.writeFile('./historicalbirds.json', text, (err) => {
+      if (err) {
+        console.log(err)
+        res.status(500)
+      }
+      else {
+        console.log('success')
+        return res.status(200)
+      }
+    })
   })
+  return next()
 })
 
 app.listen(3000); //listens on port 3000 -> http://localhost:3000/
